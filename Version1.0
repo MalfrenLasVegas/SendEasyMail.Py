@@ -1,0 +1,22 @@
+#Library for SMTP and MIME Mails
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+#Create connection and message
+message = MIMEMultipart('alternative')
+smtpserver = smtplib.SMTP('IP_SERVER', PORT)
+smtpserver.starttls()
+smtpserver.login('mail@mail.com', 'password')
+
+#Declare Mail components
+message = MIMEMultipart('alternative')
+message['From'] = 'Own_mail'
+message['To'] = 'To@to.com'
+message['Subject'] = 'Subject';
+message.attach(MIMEText('Body','plain'));
+
+#Send mail and leave connection
+smtpserver.sendmail(message['From'],message['To'], message.as_string())
+smtpserver.quit()
+
